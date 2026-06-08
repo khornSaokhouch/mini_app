@@ -10,6 +10,16 @@ const icons: Record<string, { icon: any, bg: string, text: string }> = {
   info:    { icon: Info,          bg: "bg-gray-100 dark:bg-gray-800",       text: "text-gray-600" },
 }
 
+interface Notification {
+  id: string
+  title: string
+  message: string
+  time: string
+  type: "order" | "alert" | "success" | "info"
+  read: boolean
+  date: Date
+}
+
 export default async function NotificationsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const store = await requireStore(locale)
@@ -21,7 +31,7 @@ export default async function NotificationsPage({ params }: { params: Promise<{ 
     getPayments(store.id)
   ])
 
-  const notifications = []
+  const notifications: Notification[] = []
 
   // 1. Order Notifications (Recent Pending Orders)
   const recentOrders = orders.filter(o => o.status === "PENDING").slice(0, 5)
@@ -52,7 +62,7 @@ export default async function NotificationsPage({ params }: { params: Promise<{ 
   })
 
   // 3. Recent Payments
-  const recentPayments = payments.filter(p => p.status === "PAID" || p.status === "COMPLETED").slice(0, 3)
+  const recentPayments = payments.filter(p => p.status === "PAID").slice(0, 3)
   recentPayments.forEach(p => {
     notifications.push({
       id: `pay-${p.id}`,

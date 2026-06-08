@@ -50,7 +50,7 @@ export function DashboardCharts({ recentOrders, monthlyRevenue }: Props) {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis dataKey="date" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
                 <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}`} />
-                <Tooltip formatter={(v: number) => [`$${v.toFixed(2)}`, "Revenue"]} />
+                <Tooltip formatter={(v: any) => [`$${Number(v).toFixed(2)}`, "Revenue"]} />
                 <Bar dataKey="total" fill="currentColor" radius={[4, 4, 0, 0]} className="fill-primary" />
               </BarChart>
             </ResponsiveContainer>
