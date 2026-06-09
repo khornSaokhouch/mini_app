@@ -1,7 +1,8 @@
 import { getDashboardStats, requireStore } from "@/lib/data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { DollarSign, Users, ShoppingCart, Package, TrendingUp, Clock } from "lucide-react"
+import { DollarSign, Users, Clock, Package } from "lucide-react"
 import { DashboardCharts } from "@/components/dashboard/dashboard-charts"
+import { OnboardingGuide } from "@/components/dashboard/onboarding-guide"
 
 export default async function DashboardPage({
   params,
@@ -39,6 +40,9 @@ export default async function DashboardPage({
     },
   ]
 
+  const hasProducts = stats.totalProducts > 0
+  const hasTelegramBot = Boolean(store.telegramBot)
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -47,6 +51,14 @@ export default async function DashboardPage({
           <p className="text-muted-foreground mt-1">{store.name}</p>
         </div>
       </div>
+
+      {/* Onboarding Guide — shown until all core steps are done */}
+      <OnboardingGuide
+        hasProducts={hasProducts}
+        hasTelegramBot={hasTelegramBot}
+        storeSlug={store.slug}
+        locale={locale}
+      />
 
       {/* Stat Cards */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
