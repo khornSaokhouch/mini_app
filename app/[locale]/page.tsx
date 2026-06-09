@@ -23,13 +23,13 @@ export default function MarketingPage() {
             </div>
             <span className="font-bold tracking-tight text-2xl hidden sm:block">KhMarket</span>
           </div>
-          
+
           <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold">
             <Link href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</Link>
             <Link href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How it Works</Link>
             <Link href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
           </nav>
-          
+
           <div className="hidden lg:flex items-center gap-4">
             <Link href={`/${locale}/login`} className="text-sm font-semibold hover:text-primary transition-colors">Log in</Link>
             <Link href={`/${locale}/register`} className={buttonVariants({ size: "default", className: "rounded-full px-6" })}>
@@ -59,7 +59,7 @@ export default function MarketingPage() {
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-32 lg:pt-40 lg:pb-40">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background z-0" />
-          
+
           <div className="container mx-auto px-6 md:px-12 relative z-10 flex flex-col lg:flex-row items-center gap-16">
             <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
               <div className="inline-flex items-center rounded-full border border-primary/20 px-4 py-1.5 text-sm font-semibold bg-primary/5 text-primary mb-8 shadow-sm">
@@ -86,7 +86,7 @@ export default function MarketingPage() {
 
             {/* Device Mockups */}
             <div className="flex-1 w-full relative h-[400px] md:h-[500px] lg:h-[600px] flex justify-center lg:justify-end perspective-1000 mt-12 lg:mt-0">
-              
+
               {/* Desktop Frame */}
               <div className="absolute right-0 top-10 lg:top-0 w-[120%] lg:w-[150%] max-w-[800px] rounded-xl overflow-hidden border border-border shadow-2xl bg-card hidden md:flex flex-col z-10 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-700">
                 <div className="h-8 bg-muted flex items-center px-4 gap-2 border-b">
@@ -112,10 +112,10 @@ export default function MarketingPage() {
                       <div className="h-24 bg-card rounded-lg border p-4"><div className="h-4 bg-muted rounded w-1/2 mb-2" /><div className="h-8 bg-muted rounded w-3/4" /></div>
                     </div>
                     <div className="h-48 bg-card rounded-lg border flex items-end p-4 gap-2">
-                       <div className="h-[40%] w-full bg-primary/20 rounded-t" />
-                       <div className="h-[70%] w-full bg-primary/40 rounded-t" />
-                       <div className="h-[50%] w-full bg-primary/30 rounded-t" />
-                       <div className="h-[90%] w-full bg-primary rounded-t" />
+                      <div className="h-[40%] w-full bg-primary/20 rounded-t" />
+                      <div className="h-[70%] w-full bg-primary/40 rounded-t" />
+                      <div className="h-[50%] w-full bg-primary/30 rounded-t" />
+                      <div className="h-[90%] w-full bg-primary rounded-t" />
                     </div>
                   </div>
                 </div>
@@ -168,7 +168,7 @@ export default function MarketingPage() {
               <h2 className="text-4xl font-extrabold tracking-tight">Everything you need to scale</h2>
               <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">Powerful tools designed for modern store owners to manage every aspect of their business efficiently.</p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {[
                 { title: "Smart Inventory", desc: "Real-time stock tracking with low-stock alerts, movement history, and multi-location support.", icon: TrendingUp },
@@ -186,16 +186,48 @@ export default function MarketingPage() {
             </div>
           </div>
         </section>
-        
+
+        {/* How it Works Section */}
+        <section id="how-it-works" className="py-24 md:py-32 bg-background">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl font-extrabold tracking-tight">How it Works</h2>
+              <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">Get your store up and running in minutes with our simple three-step process.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+              {/* Connector Line (hidden on mobile) */}
+              <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-muted -z-0"></div>
+              
+              {[
+                { step: "1", title: "Create Your Account", desc: "Sign up and set up your store profile in seconds. No technical knowledge required." },
+                { step: "2", title: "Add Your Products", desc: "Easily manage inventory, upload photos, and set prices from our intuitive dashboard." },
+                { step: "3", title: "Start Selling Everywhere", desc: "Launch on the web and integrate seamlessly with Telegram to reach your customers where they are." }
+              ].map((s, i) => (
+                <div key={i} className="flex flex-col items-center text-center relative z-10">
+                  <div className="w-24 h-24 rounded-full bg-background flex items-center justify-center mb-6 relative">
+                     <div className="absolute inset-0 rounded-full border-4 border-background"></div>
+                     <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold shadow-lg relative z-10">
+                       {s.step}
+                     </div>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">{s.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Social Proof / Trust */}
         <section className="py-24 bg-background">
           <div className="container mx-auto px-6 md:px-12 text-center flex flex-col items-center">
             <h2 className="text-3xl font-bold mb-10">Trusted by over 2,000+ modern merchants</h2>
             <div className="flex flex-wrap justify-center gap-8 md:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-               <div className="text-xl md:text-2xl font-black">BrandOne</div>
-               <div className="text-xl md:text-2xl font-black">GlobalCorp</div>
-               <div className="text-xl md:text-2xl font-black">TechStore</div>
-               <div className="text-xl md:text-2xl font-black">FashionHub</div>
+              <div className="text-xl md:text-2xl font-black">BrandOne</div>
+              <div className="text-xl md:text-2xl font-black">GlobalCorp</div>
+              <div className="text-xl md:text-2xl font-black">TechStore</div>
+              <div className="text-xl md:text-2xl font-black">FashionHub</div>
             </div>
           </div>
         </section>
@@ -214,7 +246,7 @@ export default function MarketingPage() {
                 Empowering merchants to sell everywhere. Build your store, manage inventory, and grow your audience seamlessly.
               </p>
             </div>
-            
+
             <div className="flex flex-col gap-4">
               <h4 className="font-bold text-lg">Product</h4>
               <Link href="#" className="text-muted-foreground hover:text-foreground">Features</Link>
@@ -222,7 +254,7 @@ export default function MarketingPage() {
               <Link href="#" className="text-muted-foreground hover:text-foreground">Telegram SDK</Link>
               <Link href="#" className="text-muted-foreground hover:text-foreground">Changelog</Link>
             </div>
-            
+
             <div className="flex flex-col gap-4">
               <h4 className="font-bold text-lg">Resources</h4>
               <Link href="#" className="text-muted-foreground hover:text-foreground">Documentation</Link>
@@ -230,22 +262,22 @@ export default function MarketingPage() {
               <Link href="#" className="text-muted-foreground hover:text-foreground">Blog</Link>
               <Link href="#" className="text-muted-foreground hover:text-foreground">Community</Link>
             </div>
-            
+
             <div className="flex flex-col gap-4">
               <h4 className="font-bold text-lg">Company</h4>
               <Link href="#" className="text-muted-foreground hover:text-foreground">About Us</Link>
               <Link href="#" className="text-muted-foreground hover:text-foreground">Careers</Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">Contact</Link>
+              <Link href="#" className="text-muted-foreground hover:text-foreground">Contacts</Link>
               <Link href="#" className="text-muted-foreground hover:text-foreground">Legal</Link>
             </div>
           </div>
-          
+
           <div className="border-t mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <p>© 2026 KhMarket Inc. All rights reserved.</p>
             <div className="flex gap-6">
               <Link href="#" className="hover:text-foreground">Privacy Policy</Link>
               <Link href="#" className="hover:text-foreground">Terms of Service</Link>
-              <Link href="#" className="hover:text-foreground">Cookie Settings</Link>
+              <Link href="#" className="hover:text-foreground">Cookies Settings</Link>
             </div>
           </div>
         </div>

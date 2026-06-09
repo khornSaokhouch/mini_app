@@ -20,9 +20,9 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen w-full bg-muted/20">
-      <Sidebar locale={locale} />
+      <Sidebar locale={locale} user={session.user} />
       <div className="flex flex-col flex-1 min-w-0">
-        <Header locale={locale} />
+        <Header locale={locale} user={session.user} />
         <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
           {children}
         </main>
