@@ -130,6 +130,32 @@ export async function updateStore(data: {
     },
   })
 
+  // Auto-register the Telegram webhook after saving a new token
+  if (data.telegramBot) {
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL || ""
+    const webhookUrl = `${appUrl}/api/telegram?storeId=${store.id}`
+    try {
+      const res = await fetch(
+        `https://api.telegram.org/bot${data.telegramBot}/setWebhook`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: webhookUrl }),
+        }
+      )
+      const result = await res.json()
+      if (!result.ok) {
+        console.error("[setWebhook] Telegram error:", result.description)
+        revalidatePath("/[locale]/dashboard/settings", "layout")
+        return { success: false, error: `Telegram setWebhook failed: ${result.description}` }
+      }
+    } catch (err) {
+      console.error("[setWebhook] Network error:", err)
+      revalidatePath("/[locale]/dashboard/settings", "layout")
+      return { success: false, error: "Could not reach Telegram API" }
+    }
+  }
+
   revalidatePath("/[locale]/dashboard/settings", "layout")
   return { success: true, store: updated }
 }

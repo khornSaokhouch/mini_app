@@ -3,25 +3,27 @@
 import Link from "next/link"
 import { useTranslations } from "next-intl"
 import { useParams } from "next/navigation"
-import { Store, ArrowRight, TrendingUp, Smartphone, ShieldCheck, Menu } from "lucide-react"
+import { Store, ArrowRight, TrendingUp, Smartphone, ShieldCheck, Menu, Sun, Moon } from "lucide-react"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { useTheme } from "next-themes"
 
 export default function MarketingPage() {
   const t = useTranslations('Index')
   const params = useParams()
   const locale = (params?.locale as string) || "en"
+  const { theme, setTheme } = useTheme()
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 overflow-x-hidden">
       {/* Navbar */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
-        <div className="container mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground shadow-sm">
-              <Store className="h-6 w-6" />
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 h-16 sm:h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary text-primary-foreground shadow-sm">
+              <Store className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <span className="font-bold tracking-tight text-2xl hidden sm:block">KhMarket</span>
+            <span className="font-bold tracking-tight text-xl sm:text-2xl hidden sm:block">KhMarket</span>
           </div>
 
           <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold">
@@ -30,33 +32,57 @@ export default function MarketingPage() {
             <Link href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
           </nav>
 
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
+            {/* Dark/Light Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Toggle theme"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="rounded-full"
+            >
+              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
             <Link href={`/${locale}/login`} className="text-sm font-semibold hover:text-primary transition-colors">Log in</Link>
             <Link href={`/${locale}/register`} className={buttonVariants({ size: "default", className: "rounded-full px-6" })}>
               Start Free Trial
             </Link>
           </div>
 
-          <Sheet>
-            <SheetTrigger className={buttonVariants({ variant: "ghost", size: "icon", className: "lg:hidden" })}>
-              <Menu className="h-6 w-6" />
-            </SheetTrigger>
-            <SheetContent>
-              <div className="flex flex-col gap-6 mt-8">
-                <Link href="#features" className="text-lg font-semibold">Features</Link>
-                <Link href="#how-it-works" className="text-lg font-semibold">How it Works</Link>
-                <Link href="#pricing" className="text-lg font-semibold">Pricing</Link>
-                <hr />
-                <Link href={`/${locale}/login`} className="text-lg font-semibold">Log in</Link>
-                <Link href={`/${locale}/register`} className={buttonVariants({ size: "lg", className: "w-full rounded-full" })}>Start Free Trial</Link>
-              </div>
-            </SheetContent>
-          </Sheet>
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="flex items-center gap-1 lg:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Toggle theme"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="rounded-full"
+            >
+              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
+            <Sheet>
+              <SheetTrigger className={buttonVariants({ variant: "ghost", size: "icon" })}>
+                <Menu className="h-5 w-5" />
+              </SheetTrigger>
+              <SheetContent>
+                <div className="flex flex-col gap-6 mt-8">
+                  <Link href="#features" className="text-lg font-semibold">Features</Link>
+                  <Link href="#how-it-works" className="text-lg font-semibold">How it Works</Link>
+                  <Link href="#pricing" className="text-lg font-semibold">Pricing</Link>
+                  <hr />
+                  <Link href={`/${locale}/login`} className="text-lg font-semibold">Log in</Link>
+                  <Link href={`/${locale}/register`} className={buttonVariants({ size: "lg", className: "w-full rounded-full" })}>Start Free Trial</Link>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* Hero Section — original UI */}
         <section className="relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-32 lg:pt-40 lg:pb-40">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background z-0" />
 

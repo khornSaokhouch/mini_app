@@ -36,7 +36,7 @@ export function SettingsClient({ store, user }: { store: any, user: any }) {
       if (res.success) {
         toast.success("Store settings updated")
       } else {
-        toast.error("Failed to update settings")
+        toast.error(res.error || "Failed to update settings")
       }
     })
   }
