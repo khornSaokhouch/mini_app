@@ -10,6 +10,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useSidebarStore } from "@/lib/store"
+import { Badge } from "@/components/ui/badge"
 
 const navItems = [
   { title: "Dashboard",   href: "/dashboard",            icon: LayoutDashboard },
@@ -27,9 +28,10 @@ const navItems = [
 interface SidebarProps {
   locale?: string
   user?: any
+  pendingOrders?: number
 }
 
-export function Sidebar({ locale = "en", user }: SidebarProps) {
+export function Sidebar({ locale = "en", user, pendingOrders = 0 }: SidebarProps) {
   const pathname = usePathname()
   const isCollapsed = useSidebarStore(state => state.isCollapsed)
 
@@ -64,6 +66,7 @@ export function Sidebar({ locale = "en", user }: SidebarProps) {
               <Link
                 key={item.href}
                 href={`/${locale}${item.href}`}
+                prefetch={true}
                 className={cn(
                   "group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150",
                   isCollapsed ? "justify-center px-0" : "gap-3",
@@ -75,7 +78,12 @@ export function Sidebar({ locale = "en", user }: SidebarProps) {
               >
                 <item.icon className="h-5 w-5 shrink-0" />
                 {!isCollapsed && <span className="flex-1 truncate">{item.title}</span>}
-                {!isCollapsed && active && <ChevronRight className="h-3 w-3 opacity-60 shrink-0" />}
+                {!isCollapsed && item.title === "Orders" && pendingOrders > 0 && (
+                  <Badge variant="destructive" className="ml-auto flex h-5 w-5 items-center justify-center rounded-full p-0 text-[10px]">
+                    {pendingOrders}
+                  </Badge>
+                )}
+                {!isCollapsed && active && item.title !== "Orders" && <ChevronRight className="h-3 w-3 opacity-60 shrink-0" />}
               </Link>
             )
           })}

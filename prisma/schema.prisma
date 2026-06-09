@@ -39,7 +39,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  telegramId    String?   @unique
+  telegramId    String?
   role          Role      @default(CUSTOMER)
   
   stores        Store[]   @relation("StoreOwners")

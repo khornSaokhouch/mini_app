@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { useRouter, usePathname } from "next/navigation"
 import { useSidebarStore } from "@/lib/store"
+import { signOut } from "next-auth/react"
 
 interface HeaderProps {
   locale?: string
@@ -81,7 +82,9 @@ export function Header({ locale = "en", user }: HeaderProps) {
           <DropdownMenuContent align="end" className="w-48">
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Store Settings</DropdownMenuItem>
-            <DropdownMenuItem>Sign out</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut({ callbackUrl: `/${locale}` })} className="text-red-600 focus:bg-red-50 focus:text-red-600">
+              Sign out
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
