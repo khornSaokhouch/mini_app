@@ -1,12 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, ShoppingBag, X, ChevronRight, Check } from "lucide-react"
+import { Search, ShoppingBag, Check } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { useCartStore } from "@/lib/store"
 import WebApp from "@twa-dev/sdk"
+import { useRouter, useParams } from "next/navigation"
 
 export function StorefrontClient({ 
   store, 
@@ -17,11 +16,14 @@ export function StorefrontClient({
   categories: any[]
   products: any[]
 }) {
+  const router = useRouter()
+  const params = useParams()
+  const locale = (params?.locale as string) || "en"
+  
   const [search, setSearch] = useState("")
   const [activeCategory, setActiveCategory] = useState("All")
-  const [selectedProduct, setSelectedProduct] = useState<any | null>(null)
   
-  const { items, addToCart, getTotal, getItemCount } = useCartStore()
+  const { items, addToCart, getTotal } = useCartStore()
 
   // Filter products
   const filtered = products.filter(p => {
@@ -35,37 +37,33 @@ export function StorefrontClient({
     if (typeof window !== "undefined" && WebApp.MainButton) {
       const total = getTotal()
       if (total > 0) {
-        WebApp.MainButton.text = `CHECKOUT • ${store.currency === 'USD' ? '$' : ''}${total.toFixed(2)}`
+        WebApp.MainButton.text = `VIEW CART • ${store.currency === 'USD' ? '$' : ''}${total.toFixed(2)}`
         WebApp.MainButton.show()
         
-        // When clicked, we would normally go to a checkout page or trigger payment
-        const handleCheckout = () => {
-          // Open Bakong/ABA link or a checkout modal
-          if (store.bakongLink) {
-            WebApp.openLink(store.bakongLink)
-          } else if (store.abaMerchantLink) {
-            WebApp.openLink(store.abaMerchantLink)
-          } else {
-            WebApp.showAlert("Checkout processing coming soon!")
-          }
+        const handleViewCart = () => {
+          router.push(`/${locale}/store/${store.slug}/cart`)
         }
         
-        WebApp.MainButton.onClick(handleCheckout)
+        WebApp.MainButton.onClick(handleViewCart)
         return () => {
-          WebApp.MainButton.offClick(handleCheckout)
+          WebApp.MainButton.offClick(handleViewCart)
         }
       } else {
         WebApp.MainButton.hide()
       }
     }
-  }, [items, store])
+  }, [items, store, locale, router])
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (e: React.MouseEvent, product: any) => {
+    e.stopPropagation() // Prevent navigating to product details
     if (typeof window !== "undefined" && WebApp.HapticFeedback) {
       WebApp.HapticFeedback.impactOccurred("light")
     }
     addToCart(product, 1)
-    setSelectedProduct(null) // Close sheet if open
+  }
+
+  const goToProduct = (productId: string) => {
+    router.push(`/${locale}/store/${store.slug}/product/${productId}`)
   }
 
   return (
@@ -106,11 +104,12 @@ export function StorefrontClient({
           const inCart = items.find(i => i.id === product.id)
           
           return (
-            <div key={product.id} className="flex flex-col bg-card rounded-3xl p-3 shadow-sm border border-border/50 relative overflow-hidden group">
-              <div 
-                className="aspect-square bg-muted/30 rounded-2xl flex items-center justify-center text-4xl mb-3 cursor-pointer overflow-hidden"
-                onClick={() => setSelectedProduct(product)}
-              >
+            <div 
+              key={product.id} 
+              onClick={() => goToProduct(product.id)}
+              className="flex flex-col bg-card rounded-3xl p-3 shadow-sm border border-border/50 relative overflow-hidden group cursor-pointer"
+            >
+              <div className="aspect-square bg-muted/30 rounded-2xl flex items-center justify-center text-4xl mb-3 overflow-hidden">
                 {product.images && product.images.length > 0 ? (
                   <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 ) : (
@@ -121,7 +120,7 @@ export function StorefrontClient({
               <div className="mt-auto pt-3 flex items-center justify-between px-1">
                 <span className="font-bold text-primary">${product.sellPrice.toFixed(2)}</span>
                 <button 
-                  onClick={() => handleAddToCart(product)}
+                  onClick={(e) => handleAddToCart(e, product)}
                   className={`h-9 w-9 rounded-full flex items-center justify-center transition-all ${inCart ? 'bg-green-500 text-white' : 'bg-primary text-primary-foreground hover:scale-105 shadow-md shadow-primary/20'}`}
                 >
                   {inCart ? <Check className="h-4 w-4" /> : <ShoppingBag className="h-4 w-4" />}
@@ -137,59 +136,6 @@ export function StorefrontClient({
           No products found.
         </div>
       )}
-
-      {/* Product Details Sheet */}
-      <Sheet open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
-        <SheetContent side="bottom" className="rounded-t-[2rem] p-0 border-0 h-[85vh] flex flex-col">
-          <div className="flex-1 overflow-y-auto">
-            <div className="w-full aspect-square bg-muted relative">
-              {selectedProduct?.images?.[0] ? (
-                <img src={selectedProduct.images[0]} alt={selectedProduct.name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-muted/50">
-                  <ShoppingBag className="h-20 w-20 text-muted-foreground/30" />
-                </div>
-              )}
-              <Button 
-                variant="secondary" 
-                size="icon" 
-                className="absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur-md border-0 h-10 w-10"
-                onClick={() => setSelectedProduct(null)}
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-            
-            <div className="p-6 pb-24">
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <h2 className="text-2xl font-bold">{selectedProduct?.name}</h2>
-                <div className="text-2xl font-bold text-primary whitespace-nowrap">
-                  ${selectedProduct?.sellPrice?.toFixed(2)}
-                </div>
-              </div>
-              
-              {selectedProduct?.description && (
-                <div className="mb-6">
-                  <h4 className="font-semibold text-sm mb-2 text-muted-foreground uppercase tracking-wider">Description</h4>
-                  <p className="text-foreground/80 leading-relaxed text-sm">
-                    {selectedProduct.description}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-          
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-xl border-t z-10">
-            <Button 
-              size="lg" 
-              className="w-full rounded-full h-14 text-base font-bold shadow-xl shadow-primary/20"
-              onClick={() => handleAddToCart(selectedProduct)}
-            >
-              Add to Cart • ${selectedProduct?.sellPrice?.toFixed(2)}
-            </Button>
-          </div>
-        </SheetContent>
-      </Sheet>
     </div>
   )
 }

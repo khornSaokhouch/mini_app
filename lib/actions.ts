@@ -265,3 +265,80 @@ export async function getOrCreateBrand(name: string) {
   }
   return brand
 }
+
+// --- Storefront Actions (Public / Customer facing) ---
+
+export async function createStorefrontOrder(data: {
+  storeId: string
+  customer: {
+    name: string
+    phone: string
+    address?: string
+  }
+  items: { productId: string; quantity: number; price: number }[]
+  paymentMethod: string
+  totalAmount: number
+}) {
+  try {
+    // Note: No requireStore() here because this is from the public storefront, not the dashboard
+    
+    // 1. Create or find customer
+    let customer = await db.customer.findFirst({
+      where: { storeId: data.storeId, phone: data.customer.phone }
+    })
+
+    if (!customer) {
+      customer = await db.customer.create({
+        data: {
+          storeId: data.storeId,
+          name: data.customer.name,
+          phone: data.customer.phone,
+          notes: data.customer.address,
+        }
+      })
+    } else {
+      // Update address if provided
+      customer = await db.customer.update({
+        where: { id: customer.id },
+        data: {
+          name: data.customer.name, // update name if changed
+          notes: data.customer.address ? data.customer.address : customer.notes
+        }
+      })
+    }
+
+    // 2. Create the order with items and payment in a transaction
+    const order = await db.order.create({
+      data: {
+        storeId: data.storeId,
+        customerId: customer.id,
+        status: "PENDING",
+        totalAmount: data.totalAmount,
+        items: {
+          create: data.items.map(item => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.price
+          }))
+        },
+        payment: {
+          create: {
+            amount: data.totalAmount,
+            method: data.paymentMethod,
+            status: "PENDING"
+          }
+        }
+      },
+      include: {
+        items: true,
+        payment: true
+      }
+    })
+
+    return { success: true, orderId: order.id }
+  } catch (error: any) {
+    console.error("Failed to create storefront order:", error)
+    return { success: false, error: error.message || "Failed to process order" }
+  }
+}
+
