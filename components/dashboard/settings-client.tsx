@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { Save, Store, User, Lock, Bell, Smartphone, RefreshCw, CreditCard } from "lucide-react"
+import { HelpCircle, Save, Store, User, Lock, Bell, Smartphone, RefreshCw, CreditCard } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
 import { updateStore } from "@/lib/actions"
 import { toast } from "sonner"
+import { SettingsTour } from "./settings-tour"
 
 export function SettingsClient({ store, user }: { store: any, user: any }) {
   const [isPending, startTransition] = useTransition()
@@ -43,23 +44,38 @@ export function SettingsClient({ store, user }: { store: any, user: any }) {
 
   return (
     <div className="flex flex-col gap-6 max-w-3xl">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-        <p className="text-muted-foreground mt-1">Manage your store configuration and preferences</p>
+      <SettingsTour />
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+          <p className="text-muted-foreground mt-1">Manage your store configuration and preferences</p>
+        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          title="Replay Tour"
+          className="rounded-full text-muted-foreground hover:text-foreground"
+          onClick={() => {
+            localStorage.removeItem("hasSeenSettingsTour")
+            window.location.reload()
+          }}
+        >
+          <HelpCircle className="h-5 w-5" />
+        </Button>
       </div>
 
       <Tabs defaultValue="store">
         <TabsList className="flex-wrap h-auto gap-1">
-          <TabsTrigger value="store" className="gap-2"><Store className="h-4 w-4" />Store</TabsTrigger>
-          <TabsTrigger value="payment" className="gap-2"><CreditCard className="h-4 w-4" />Payment</TabsTrigger>
-          <TabsTrigger value="account" className="gap-2"><User className="h-4 w-4" />Account</TabsTrigger>
-          <TabsTrigger value="security" className="gap-2"><Lock className="h-4 w-4" />Security</TabsTrigger>
-          <TabsTrigger value="notifications" className="gap-2"><Bell className="h-4 w-4" />Notifications</TabsTrigger>
-          <TabsTrigger value="telegram" className="gap-2"><Smartphone className="h-4 w-4" />Telegram</TabsTrigger>
+          <TabsTrigger id="tour-tab-store" value="store" className="gap-2"><Store className="h-4 w-4" />Store</TabsTrigger>
+          <TabsTrigger id="tour-tab-payment" value="payment" className="gap-2"><CreditCard className="h-4 w-4" />Payment</TabsTrigger>
+          <TabsTrigger id="tour-tab-account" value="account" className="gap-2"><User className="h-4 w-4" />Account</TabsTrigger>
+          <TabsTrigger id="tour-tab-security" value="security" className="gap-2"><Lock className="h-4 w-4" />Security</TabsTrigger>
+          <TabsTrigger id="tour-tab-notifications" value="notifications" className="gap-2"><Bell className="h-4 w-4" />Notifications</TabsTrigger>
+          <TabsTrigger id="tour-tab-telegram" value="telegram" className="gap-2"><Smartphone className="h-4 w-4" />Telegram</TabsTrigger>
         </TabsList>
 
         {/* Store Settings */}
-        <TabsContent value="store" className="mt-6 space-y-4">
+        <TabsContent id="tour-content-store" value="store" className="mt-6 space-y-4">
           <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle>Store Information</CardTitle>
@@ -96,7 +112,7 @@ export function SettingsClient({ store, user }: { store: any, user: any }) {
         </TabsContent>
 
         {/* Payment Settings */}
-        <TabsContent value="payment" className="mt-6 space-y-4">
+        <TabsContent id="tour-content-payment" value="payment" className="mt-6 space-y-4">
           <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle>Payment Links</CardTitle>
@@ -132,7 +148,7 @@ export function SettingsClient({ store, user }: { store: any, user: any }) {
         </TabsContent>
 
         {/* Account Settings */}
-        <TabsContent value="account" className="mt-6 space-y-4">
+        <TabsContent id="tour-content-account" value="account" className="mt-6 space-y-4">
           <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle>Personal Information</CardTitle>
@@ -162,7 +178,7 @@ export function SettingsClient({ store, user }: { store: any, user: any }) {
         </TabsContent>
 
         {/* Security */}
-        <TabsContent value="security" className="mt-6 space-y-4">
+        <TabsContent id="tour-content-security" value="security" className="mt-6 space-y-4">
           <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle>Change Password</CardTitle>
@@ -190,7 +206,7 @@ export function SettingsClient({ store, user }: { store: any, user: any }) {
         </TabsContent>
 
         {/* Notifications */}
-        <TabsContent value="notifications" className="mt-6 space-y-4">
+        <TabsContent id="tour-content-notifications" value="notifications" className="mt-6 space-y-4">
           <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle>Notification Preferences</CardTitle>
@@ -216,7 +232,7 @@ export function SettingsClient({ store, user }: { store: any, user: any }) {
         </TabsContent>
 
         {/* Telegram */}
-        <TabsContent value="telegram" className="mt-6 space-y-4">
+        <TabsContent id="tour-content-telegram" value="telegram" className="mt-6 space-y-4">
           <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle>Telegram Bot Integration</CardTitle>

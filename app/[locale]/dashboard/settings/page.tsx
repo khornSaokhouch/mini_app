@@ -8,3 +8,4 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
 
   return <SettingsClient store={store} user={session.user} />
 }
+

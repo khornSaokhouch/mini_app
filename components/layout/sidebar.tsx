@@ -62,9 +62,11 @@ export function Sidebar({ locale = "en", user, pendingOrders = 0 }: SidebarProps
         <div className="space-y-1">
           {navItems.map((item) => {
             const active = isActive(item.href)
+            const tourId = `tour-${item.title.toLowerCase()}`
             return (
               <Link
                 key={item.href}
+                id={tourId}
                 href={`/${locale}${item.href}`}
                 prefetch={true}
                 className={cn(

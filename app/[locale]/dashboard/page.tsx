@@ -61,7 +61,7 @@ export default async function DashboardPage({
       />
 
       {/* Stat Cards */}
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+      <div id="tour-stats" className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         {statCards.map((card) => (
           <Card key={card.title} className="border-0 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
