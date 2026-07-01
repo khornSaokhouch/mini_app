@@ -14,13 +14,10 @@ export function MarketingHeader({ locale }: MarketingHeaderProps) {
   const { theme, setTheme } = useTheme()
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-background/60 backdrop-blur-xl">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 h-16 sm:h-20 flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary text-primary-foreground shadow-sm">
-            <Store className="h-5 w-5 sm:h-6 sm:w-6" />
-          </div>
-          <span className="font-bold tracking-tight text-xl sm:text-2xl">KhMarket</span>
+          <span className="font-bold tracking-tight text-xl sm:text-2xl">Online Shop Platform</span>
         </div>
 
         <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold">
@@ -41,8 +38,8 @@ export function MarketingHeader({ locale }: MarketingHeaderProps) {
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           </Button>
-          <Link href={`/${locale}/login`} className="text-sm font-semibold hover:text-primary transition-colors">Log in</Link>
-          <Link href={`/${locale}/register`} className={buttonVariants({ size: "default", className: "rounded-full px-6" })}>
+          <Link href={`/${locale}/login`} className="text-sm font-semibold hover:text-violet-500 transition-colors">Log in</Link>
+          <Link href={`/${locale}/register`} className={buttonVariants({ size: "default", className: "rounded-full px-6 shadow-md transition-all hover:scale-105" })}>
             Start Free Trial
           </Link>
         </div>
@@ -69,8 +66,8 @@ export function MarketingHeader({ locale }: MarketingHeaderProps) {
                 <Link href="#how-it-works" className="text-2xl font-bold hover:text-primary transition-colors">How it Works</Link>
                 <Link href="#pricing" className="text-2xl font-bold hover:text-primary transition-colors">Pricing</Link>
                 <hr className="w-full opacity-20" />
-                <Link href={`/${locale}/login`} className="text-2xl font-bold hover:text-primary transition-colors">Log in</Link>
-                <Link href={`/${locale}/register`} className={buttonVariants({ size: "lg", className: "w-full rounded-full text-lg h-14 shadow-lg shadow-primary/20" })}>
+                <Link href={`/${locale}/login`} className="text-2xl font-bold hover:text-violet-500 transition-colors">Log in</Link>
+                <Link href={`/${locale}/register`} className={buttonVariants({ size: "lg", className: "w-full rounded-full text-lg h-14 shadow-lg transition-all hover:scale-[1.02]" })}>
                   Start Free Trial
                 </Link>
               </div>

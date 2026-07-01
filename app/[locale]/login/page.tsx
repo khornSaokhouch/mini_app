@@ -42,18 +42,17 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left Branding Panel */}
-      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-primary via-primary/80 to-indigo-600 p-12 text-primary-foreground">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm">
-            <Store className="h-6 w-6" />
-          </div>
-          <span className="font-bold text-2xl tracking-tight">KhMarket</span>
+      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-violet-600 via-fuchsia-600 to-indigo-600 p-12 text-white relative overflow-hidden">
+        {/* Decorative background glow */}
+        <div className="absolute top-0 right-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0" />
+        <div className="relative z-10 flex items-center gap-3">
+          <span className="font-bold text-2xl tracking-tight">Online Shop Platform</span>
         </div>
         <div>
           <blockquote className="text-2xl font-semibold leading-relaxed mb-6">
             "The fastest way to launch your store and sell on Telegram — all in one place."
           </blockquote>
-          <p className="text-primary-foreground/70 font-medium">KhMarket Platform</p>
+          <p className="text-primary-foreground/70 font-medium">Online Shop Platform</p>
         </div>
         <div className="flex gap-3">
           {[1, 2, 3].map(i => (
@@ -67,10 +66,7 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
-            <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-primary text-primary-foreground">
-              <Store className="h-5 w-5" />
-            </div>
-            <span className="font-bold text-xl tracking-tight">KhMarket</span>
+            <span className="font-bold text-xl tracking-tight">Online Shop Platform</span>
           </div>
 
           <div className="mb-8">
@@ -100,7 +96,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <Label htmlFor="password">Password</Label>
-                <Link href="#" className="text-xs text-primary hover:underline">Forgot password?</Link>
+                <Link href="#" className="text-xs text-violet-500 hover:text-violet-600 font-medium hover:underline">Forgot password?</Link>
               </div>
               <div className="relative">
                 <Input
@@ -122,14 +118,14 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full h-11 text-base" disabled={loading}>
+            <Button type="submit" className="w-full h-11 text-base shadow-md transition-all hover:scale-[1.02]" disabled={loading}>
               {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Signing in...</> : "Sign In"}
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
             Don't have an account?{" "}
-            <Link href={`/${locale}/register`} className="font-semibold text-primary hover:underline">
+            <Link href={`/${locale}/register`} className="font-semibold text-violet-500 hover:text-violet-600 hover:underline transition-colors">
               Create your store
             </Link>
           </div>

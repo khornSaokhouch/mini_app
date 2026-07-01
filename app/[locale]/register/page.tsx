@@ -52,12 +52,11 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left Branding Panel */}
-      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-indigo-600 via-primary/80 to-primary p-12 text-primary-foreground">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm">
-            <Store className="h-6 w-6" />
-          </div>
-          <span className="font-bold text-2xl tracking-tight">KhMarket</span>
+      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-12 text-white relative overflow-hidden">
+        {/* Decorative background glow */}
+        <div className="absolute top-0 right-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0" />
+        <div className="relative z-10 flex items-center gap-3">
+          <span className="font-bold text-2xl tracking-tight">Online Shop Platform</span>
         </div>
         <div>
           <h2 className="text-3xl font-bold mb-8 leading-snug">Start selling smarter,<br />today.</h2>
@@ -70,7 +69,7 @@ export default function RegisterPage() {
             ))}
           </ul>
         </div>
-        <p className="text-primary-foreground/50 text-sm">© 2026 KhMarket Inc.</p>
+        <p className="text-primary-foreground/50 text-sm">© 2026 Online Shop Platform.</p>
       </div>
 
       {/* Right Form Panel */}
@@ -78,10 +77,7 @@ export default function RegisterPage() {
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
-            <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-primary text-primary-foreground">
-              <Store className="h-5 w-5" />
-            </div>
-            <span className="font-bold text-xl tracking-tight">KhMarket</span>
+            <span className="font-bold text-xl tracking-tight">Online Shop Platform</span>
           </div>
 
           <div className="mb-8">
@@ -131,7 +127,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full h-11 text-base" disabled={loading}>
+            <Button type="submit" className="w-full h-11 text-base shadow-md transition-all hover:scale-[1.02]" disabled={loading}>
               {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Creating your store...</> : "Create Store & Sign Up"}
             </Button>
 
@@ -145,7 +141,7 @@ export default function RegisterPage() {
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
             Already have an account?{" "}
-            <Link href={`/${locale}/login`} className="font-semibold text-primary hover:underline">
+            <Link href={`/${locale}/login`} className="font-semibold text-violet-500 hover:text-violet-600 hover:underline transition-colors">
               Sign in
             </Link>
           </div>
