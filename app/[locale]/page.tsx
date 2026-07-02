@@ -5,8 +5,11 @@ import { useTranslations } from "next-intl"
 import { MarketingHeader } from "@/components/marketing/marketing-header"
 import { HeroSection } from "@/components/marketing/hero-section"
 import { FeaturesSection } from "@/components/marketing/features-section"
+import { StatsSection } from "@/components/marketing/stats-section"
 import { HowItWorksSection } from "@/components/marketing/how-it-works-section"
 import { PricingSection } from "@/components/marketing/pricing-section"
+import { FaqSection } from "@/components/marketing/faq-section"
+import { ContactSection } from "@/components/marketing/contact-section"
 import { SocialProofSection } from "@/components/marketing/social-proof-section"
 import { MarketingFooter } from "@/components/marketing/marketing-footer"
 
@@ -25,6 +28,8 @@ export default function MarketingPage() {
         {/* Hero Section */}
         <HeroSection locale={locale} />
 
+        <StatsSection />
+
         {/* Features Section */}
         <FeaturesSection />
 
@@ -33,6 +38,10 @@ export default function MarketingPage() {
 
         {/* Pricing Section (New) */}
         <PricingSection locale={locale} />
+        {/* FAQ Section */}
+        <FaqSection />
+        {/* Contact Section */}
+        <ContactSection />
 
         {/* Social Proof Section */}
         <SocialProofSection />

@@ -41,7 +41,7 @@ export function FeaturesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {features.map((f, i) => (
-            <div key={i} className={`relative bg-card/40 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-300 group hover:-translate-y-1 hover:shadow-2xl ${f.shadow}`}>
+            <div key={i} className={`relative bg-card/60 backdrop-blur-xl rounded-3xl p-8 border border-border hover:border-violet-500/50 transition-all duration-300 group hover:-translate-y-1 hover:shadow-2xl ${f.shadow}`}>
               {/* Subtle gradient overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-3xl pointer-events-none" />
               

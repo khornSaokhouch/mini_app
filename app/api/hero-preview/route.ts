@@ -8,6 +8,7 @@ export async function GET() {
       totalRevenue,
       totalProducts,
       totalCustomers,
+      totalStores,
       // Monthly revenue for last 6 months (for chart)
       monthlyRevenue,
       // Sample products from first store (for Telegram mockup)
@@ -17,6 +18,7 @@ export async function GET() {
       db.order.aggregate({ _sum: { totalAmount: true } }),
       db.product.count(),
       db.customer.count(),
+      db.store.count(),
       db.order.groupBy({
         by: ["createdAt"],
         where: {
@@ -60,6 +62,7 @@ export async function GET() {
         totalRevenue: totalRevenue._sum.totalAmount ?? 0,
         totalProducts,
         totalCustomers,
+        totalStores,
       },
       chartData,
       products: sampleProducts,

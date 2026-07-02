@@ -38,27 +38,20 @@ export function HeroSection({ locale }: HeroSectionProps) {
   const maxRevenue = Math.max(...chartData.map((c) => c.total), 1)
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-20 md:pt-24 md:pb-32 lg:pt-32 lg:pb-40">
+    <section className="relative overflow-hidden pt-20 pb-20 md:pt-24 md:pb-32 lg:pt-32 lg:pb-40">
       {/* Vibrant Animated Background Elements */}
-      <div className="absolute inset-0 bg-background z-0" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-violet-500/30 via-fuchsia-500/30 to-indigo-500/30 blur-[120px] rounded-full z-0 opacity-70 animate-pulse" style={{ animationDuration: '4s' }} />
-      <div className="absolute -top-[200px] -right-[200px] w-[500px] h-[500px] bg-blue-500/20 blur-[100px] rounded-full z-0" />
-      <div className="absolute top-[20%] -left-[100px] w-[300px] h-[300px] bg-purple-500/20 blur-[100px] rounded-full z-0" />
+      <div className="absolute inset-0 bg-[#FFFFFF] z-0" />
       
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMTUwLCAxNTAsIDE1MCwgMC4xKSIvPjwvc3ZnPg==')] z-0 [mask-image:linear-gradient(to_bottom,white,transparent)]" />
 
       <div className="container mx-auto px-6 md:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
         <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
-          <div className="inline-flex items-center rounded-full border border-violet-500/30 px-4 py-1.5 text-sm font-semibold bg-violet-500/10 text-violet-600 dark:text-violet-400 mb-6 md:mb-8 shadow-sm backdrop-blur-md transition-all hover:bg-violet-500/20">
-            <Sparkles className="w-4 h-4 mr-2 text-violet-500" />
-            Start your e-commerce journey today
-          </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-black">
             Turn your passion into <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-fuchsia-500 to-indigo-500">a thriving business.</span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+          <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-xl leading-relaxed">
             Everything you need to sell online, simplified. Create your beautiful store today and start reaching customers on the web and social platforms with ease.
           </p>
           <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -69,14 +62,14 @@ export function HeroSection({ locale }: HeroSectionProps) {
               Book Demo
             </Link>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground font-medium">No credit card required • 14-day free trial</p>
+          <p className="mt-4 text-sm text-gray-500 font-medium">No credit card required • 14-day free trial</p>
         </div>
 
         {/* Device Mockups */}
-        <div className="w-full lg:w-1/2 lg:flex-1 relative h-[450px] sm:h-[500px] md:h-[600px] lg:h-[600px] min-h-[450px] sm:min-h-[500px] md:min-h-[600px] shrink-0 flex justify-center lg:justify-end mt-12 lg:mt-0 perspective-1000">
+        <div className="w-full lg:w-1/2 lg:flex-1 relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] shrink-0 flex justify-center lg:justify-end mt-12 lg:mt-0 perspective-1000">
 
           {/* ── Desktop Dashboard Frame ── */}
-          <div className="absolute right-0 top-0 w-[120%] lg:w-[140%] max-w-[800px] rounded-xl overflow-hidden border border-white/10 shadow-[0_0_40px_rgba(139,92,246,0.15)] bg-background/60 backdrop-blur-xl flex flex-col z-10 transform rotate-[-2deg] scale-75 sm:scale-90 md:scale-100 origin-top hover:rotate-0 transition-transform duration-700">
+          <div className="absolute right-0 top-0 w-full lg:w-[140%] max-w-[800px] rounded-xl overflow-hidden border border-white/10 shadow-[0_0_40px_rgba(139,92,246,0.15)] bg-background/60 backdrop-blur-xl flex flex-col z-10 transform rotate-[-2deg] scale-[0.85] sm:scale-90 md:scale-100 origin-top hover:rotate-0 transition-transform duration-700">
             {/* Browser chrome */}
             <div className="h-8 bg-muted/40 backdrop-blur-md flex items-center px-4 gap-2 border-b border-white/10 shrink-0">
               <div className="flex gap-1.5">

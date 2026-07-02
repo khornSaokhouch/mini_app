@@ -110,7 +110,7 @@ export function PricingSection({ locale }: PricingSectionProps) {
               key={index}
               className={`relative flex flex-col justify-between rounded-3xl bg-card/60 backdrop-blur-xl border p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 ${
                 plan.popular
-                  ? "border-transparent shadow-[0_0_40px_rgba(139,92,246,0.15)] md:scale-105 z-10"
+                  ? "border-transparent shadow-[0_0_40px_rgba(139,92,246,0.15)] md:scale-105 z-10 w-full md:w-[calc(100%+2rem)]"
                   : "border-white/10 shadow-sm hover:border-white/20"
               }`}
             >
