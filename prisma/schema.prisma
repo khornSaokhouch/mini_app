@@ -32,6 +32,60 @@ enum PaymentStatus {
   REFUNDED
 }
 
+enum PlanInterval {
+  MONTHLY
+  YEARLY
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  TRIALING
+  PAST_DUE
+  CANCELLED
+  EXPIRED
+}
+
+model Plan {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  description   String?
+  priceMonthly  Float
+  priceYearly   Float
+  features      String[]
+  maxProducts   Int         @default(50)
+  maxOrders     Int         @default(500)
+  maxStaff      Int         @default(3)
+  isActive      Boolean     @default(true)
+  isPopular     Boolean     @default(false)
+  sortOrder     Int         @default(0)
+
+  subscriptions Subscription[]
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Subscription {
+  id            String             @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String             @db.ObjectId
+  user          User               @relation(fields: [userId], references: [id])
+  planId        String             @db.ObjectId
+  plan          Plan               @relation(fields: [planId], references: [id])
+  interval      PlanInterval       @default(MONTHLY)
+  status        SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  cancelledAt   DateTime?
+  trialEndsAt   DateTime?
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([userId])
+  @@index([planId])
+  @@index([status])
+}
+
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
@@ -47,6 +101,7 @@ model User {
   staffStoreIds String[]  @db.ObjectId
 
   orders        Order[]
+  subscriptions Subscription[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
