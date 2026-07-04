@@ -1,4 +1,5 @@
 "use client"
+import { useTranslations } from "next-intl"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -10,38 +11,39 @@ interface NavItem {
   icon: any
 }
 
-export function AdminSidebarNav({ locale }: { locale: string }) {
+export function AdminSidebarNav({ locale, isExpanded }: { locale: string; isExpanded: boolean }) {
+  const t = useTranslations("AdminSidebar")
   const pathname = usePathname()
 
   const navItems: NavItem[] = [
     {
       href: `/${locale}/admin`,
-      label: "Overview",
+      label: t("dashboard"),
       icon: BarChart,
     },
     {
       href: `/${locale}/admin/stores`,
-      label: "Tenant Stores",
+      label: t("manageStore"),
       icon: Store,
     },
     {
       href: `/${locale}/admin/users`,
-      label: "Global Users",
+      label: t("manageUser"),
       icon: Users,
     },
     {
       href: `/${locale}/admin/plans`,
-      label: "Manage Plans",
+      label: t("managePlans"),
       icon: Package,
     },
     {
       href: `/${locale}/admin/subscriptions`,
-      label: "Subscriptions",
+      label: t("subscriptions"),
       icon: CreditCard,
     },
     {
       href: `/${locale}/admin/settings`,
-      label: "System Config",
+      label: t("setting"),
       icon: Settings,
     },
   ]
@@ -65,7 +67,7 @@ export function AdminSidebarNav({ locale }: { locale: string }) {
             }`}
           >
             <Icon className="h-4 w-4" />
-            {item.label}
+            {isExpanded && item.label}
           </Link>
         )
       })}

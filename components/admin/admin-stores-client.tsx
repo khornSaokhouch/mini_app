@@ -1,4 +1,5 @@
 "use client"
+import { useTranslations } from "next-intl"
 
 import { Store, MoreHorizontal, CheckCircle2, Search } from "lucide-react"
 import { useState } from "react"
@@ -10,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export function AdminStoresClient({ stores }: { stores: any[] }) {
+  const t = useTranslations("AdminPages.stores")
   const [search, setSearch] = useState("")
   const filtered = stores.filter(s => 
     s.name.toLowerCase().includes(search.toLowerCase()) || 
@@ -21,8 +23,8 @@ export function AdminStoresClient({ stores }: { stores: any[] }) {
     <div className="flex flex-col gap-8 max-w-6xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Tenant Stores</h1>
-          <p className="text-muted-foreground mt-1">All registered stores on the KhMarket platform</p>
+          <h1 className="text-3xl font-bold text-foreground">{t("title")}</h1>
+          <p className="text-muted-foreground mt-1">{t("description")}</p>
         </div>
         <div className="relative shrink-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

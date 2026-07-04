@@ -151,5 +151,46 @@
     "loading": "Sending...",
     "backToLogin": "Back to login",
     "back": "Back"
+  },
+  "AdminSidebar": {
+    "dashboard": "Dashboard",
+    "manageStore": "Manage Store",
+    "manageUser": "Manage User",
+    "managePlans": "Manage Plans",
+    "subscriptions": "Subscriptions",
+    "setting": "Setting",
+    "logout": "Logout",
+    "confirmLogout": "Are you sure?",
+    "confirmLogoutDescription": "You will be logged out of your account.",
+    "cancel": "Cancel",
+    "confirm": "Logout"
+  },
+  "AdminPages": {
+    "stores": {
+      "title": "Manage Store",
+      "description": "View and manage all tenant stores."
+    },
+    "users": {
+      "title": "Manage User",
+      "description": "View and manage all platform users."
+    },
+    "plans": {
+      "title": "Manage Plans",
+      "description": "Create and manage subscription plans."
+    },
+    "subscriptions": {
+      "title": "Subscriptions",
+      "description": "View and manage all active subscriptions."
+    },
+    "settings": {
+      "title": "System Settings",
+      "description": "Configure platform-wide settings.",
+      "general": "General",
+      "account": "Account",
+      "security": "Security",
+      "domain": "Domain",
+      "gateways": "Payment Gateways",
+      "system": "System"
+    }
   }
 }

@@ -1,6 +1,6 @@
 {
   "Index": {
-    "title": "Online Shop Platform"
+    "title": "វេទិកាសម្រាប់ហាងលក់ទំនិញតាមអនឡាញ"
   },
   "MarketingHeader": {
     "title": "Online Shop Platform",
@@ -151,5 +151,46 @@
     "loading": "កំពុងផ្ញើ...",
     "backToLogin": "ត្រឡប់ទៅចូលគណនីវិញ",
     "back": "ថយក្រោយ"
+  },
+  "AdminSidebar": {
+    "dashboard": "ផ្ទាំងគ្រប់គ្រង",
+    "manageStore": "គ្រប់គ្រងហាង",
+    "manageUser": "គ្រប់គ្រងអ្នកប្រើប្រាស់",
+    "managePlans": "គ្រប់គ្រងគម្រោង",
+    "subscriptions": "ការជាវ",
+    "setting": "ការកំណត់",
+    "logout": "ចាកចេញ",
+    "confirmLogout": "តើអ្នកប្រាកដដែរឬទេ?",
+    "confirmLogoutDescription": "អ្នកនឹងត្រូវចាកចេញពីគណនីរបស់អ្នក។",
+    "cancel": "បោះបង់",
+    "confirm": "ចាកចេញ"
+  },
+  "AdminPages": {
+    "stores": {
+      "title": "គ្រប់គ្រងហាង",
+      "description": "មើល និងគ្រប់គ្រងហាងទាំងអស់របស់អ្នកជួល។"
+    },
+    "users": {
+      "title": "គ្រប់គ្រងអ្នកប្រើប្រាស់",
+      "description": "មើល និងគ្រប់គ្រងអ្នកប្រើប្រាស់ទាំងអស់នៃវេទិកា។"
+    },
+    "plans": {
+      "title": "គ្រប់គ្រងគម្រោង",
+      "description": "បង្កើត និងគ្រប់គ្រងគម្រោងជាវ។"
+    },
+    "subscriptions": {
+      "title": "ការជាវ",
+      "description": "មើល និងគ្រប់គ្រងការជាវសកម្មទាំងអស់។"
+    },
+    "settings": {
+      "title": "ការកំណត់ប្រព័ន្ធ",
+      "description": "កំណត់រចនាសម្ព័ន្ធការកំណត់ទូទាំងវេទិកា។",
+      "general": "ទូទៅ",
+      "account": "គណនី",
+      "security": "សុវត្ថិភាព",
+      "domain": "ដែន",
+      "gateways": "ច្រកទូទាត់ប្រាក់",
+      "system": "ប្រព័ន្ធ"
+    }
   }
 }

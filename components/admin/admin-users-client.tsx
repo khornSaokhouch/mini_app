@@ -1,4 +1,5 @@
 "use client"
+import { useTranslations } from "next-intl"
 
 import { useState } from "react"
 import { Search, MoreHorizontal, ShieldCheck, User, UserCog } from "lucide-react"
@@ -17,6 +18,7 @@ const roleConfig: Record<string, { label: string, icon: any, color: string }> = 
 }
 
 export function AdminUsersClient({ users }: { users: any[] }) {
+  const t = useTranslations("AdminPages.users")
   const [search, setSearch] = useState("")
   const filtered = users.filter(u => 
     (u.name && u.name.toLowerCase().includes(search.toLowerCase())) || 
@@ -27,8 +29,8 @@ export function AdminUsersClient({ users }: { users: any[] }) {
     <div className="flex flex-col gap-8 max-w-6xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Global Users</h1>
-          <p className="text-muted-foreground mt-1">All users registered on the KhMarket platform</p>
+          <h1 className="text-3xl font-bold text-foreground">{t("title")}</h1>
+          <p className="text-muted-foreground mt-1">{t("description")}</p>
         </div>
         <div className="relative shrink-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
