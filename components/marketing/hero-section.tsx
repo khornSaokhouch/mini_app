@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowRight, DollarSign, Package, Users, ShoppingCart, Sparkles } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
+import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 
 interface HeroSectionProps {
@@ -21,6 +22,7 @@ interface PreviewData {
 }
 
 export function HeroSection({ locale }: HeroSectionProps) {
+  const t = useTranslations("HeroSection")
   const [data, setData] = useState<PreviewData | null>(null)
 
   useEffect(() => {
@@ -47,22 +49,21 @@ export function HeroSection({ locale }: HeroSectionProps) {
 
       <div className="container mx-auto px-6 md:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
         <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-black">
-            Turn your passion into <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-fuchsia-500 to-indigo-500">a thriving business.</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-foreground">
+            {t("title")}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-xl leading-relaxed">
-            Everything you need to sell online, simplified. Create your beautiful store today and start reaching customers on the web and social platforms with ease.
+            {t("description")}
           </p>
           <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link href={`/${locale}/register`} className={buttonVariants({ size: "lg", className: "gap-2 text-md h-14 px-8 rounded-full w-full sm:w-auto shadow-lg transition-all hover:scale-105" })}>
-              Start Selling for Free <ArrowRight className="h-5 w-5" />
+              {t("startSelling")} <ArrowRight className="h-5 w-5" />
             </Link>
             <Link href="#demo" className={buttonVariants({ size: "lg", variant: "outline", className: "text-md h-14 px-8 rounded-full w-full sm:w-auto backdrop-blur-md bg-background/50 border-border/50 hover:bg-muted/50" })}>
-              Book Demo
+              {t("bookDemo")}
             </Link>
           </div>
-          <p className="mt-4 text-sm text-gray-500 font-medium">No credit card required • 14-day free trial</p>
+          <p className="mt-4 text-sm text-gray-500 font-medium">{t("trialInfo")}</p>
         </div>
 
         {/* Device Mockups */}
@@ -88,7 +89,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
               <div className="w-44 bg-card/40 backdrop-blur-md border-r border-white/5 p-3 space-y-1.5 shrink-0">
                 <div className="h-3 bg-muted/50 rounded w-2/3 mb-3" />
                 {["Dashboard", "Orders", "Products", "Customers"].map((item, i) => (
-                  <div key={item} className={`h-7 rounded-lg flex items-center px-2 text-[9px] font-semibold ${i === 0 ? "bg-violet-500/10 text-violet-500" : "text-muted-foreground"}`}>
+                  <div key={item} className={`h-7 rounded-lg flex items-center px-2 text-[9px] font-semibold ${i === 0 ? "bg-primary/10 text-primary" : "text-muted-foreground"}`}>
                     {item}
                   </div>
                 ))}
@@ -107,7 +108,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
                     <div key={label} className="bg-card/60 backdrop-blur-md rounded-lg border border-white/5 p-2 shadow-sm">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-[8px] text-muted-foreground font-medium">{label}</span>
-                        <Icon className="h-2.5 w-2.5 text-violet-500/70" />
+                        <Icon className="h-2.5 w-2.5 text-primary/70" />
                       </div>
                       <div className="text-xs font-bold transition-all duration-500">{value}</div>
                     </div>
@@ -122,7 +123,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
                       ? chartData.map((c, i) => (
                           <div key={i} className="flex-1 flex flex-col items-center gap-1 group">
                             <div
-                              className="w-full rounded-t transition-all duration-700 bg-gradient-to-t from-violet-600 to-fuchsia-500 group-hover:opacity-100"
+                              className="w-full rounded-t transition-all duration-700 bg-primary group-hover:opacity-100"
                               style={{ height: `${Math.max(8, (c.total / maxRevenue) * 100)}%`, opacity: 0.6 + (i / chartData.length) * 0.4 }}
                             />
                             <span className="text-[7px] text-muted-foreground">{c.month}</span>
@@ -131,7 +132,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
                       : /* Fallback skeleton bars */
                         [40, 70, 50, 90, 60, 80].map((h, i) => (
                           <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                            <div className="w-full rounded-t bg-violet-500/40 animate-pulse" style={{ height: `${h}%` }} />
+                            <div className="w-full rounded-t bg-primary/30 animate-pulse" style={{ height: `${h}%` }} />
                             <div className="h-1.5 w-4 bg-muted/50 rounded animate-pulse" />
                           </div>
                         ))}
@@ -168,10 +169,10 @@ export function HeroSection({ locale }: HeroSectionProps) {
             </div>
 
             {/* Store banner */}
-            <div className="h-16 bg-gradient-to-r from-violet-500 to-indigo-500 flex items-center px-3 gap-2 shrink-0">
+            <div className="h-16 bg-primary flex items-center px-3 gap-2 shrink-0">
               <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm shrink-0" />
               <div>
-                <p className="text-white text-[9px] font-bold">KhMarket Store</p>
+                <p className="text-primary-foreground text-[9px] font-bold">KhMarket Store</p>
                 <p className="text-white/80 text-[7px]">Free shipping on orders $20+</p>
               </div>
             </div>
@@ -183,7 +184,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
                   key={cat}
                   className={`px-2.5 py-1 rounded-full text-[8px] font-bold shrink-0 ${
                     i === 0
-                      ? "bg-violet-500 text-white"
+                      ? "bg-primary text-primary-foreground"
                       : "bg-muted/50 backdrop-blur-md text-muted-foreground"
                   }`}
                 >
@@ -211,9 +212,9 @@ export function HeroSection({ locale }: HeroSectionProps) {
                         )}
                         <div className="p-1.5 flex flex-col gap-0.5">
                           <p className="text-[8px] font-semibold leading-tight line-clamp-1 text-foreground">{p.name}</p>
-                          <p className="text-[9px] text-violet-500 font-bold">${p.sellPrice}</p>
-                          <div className="w-full mt-0.5 h-4 rounded-md bg-violet-500/10 flex items-center justify-center">
-                            <span className="text-[6px] font-bold text-violet-500">+ ADD</span>
+                          <p className="text-[9px] text-primary font-bold">${p.sellPrice}</p>
+                          <div className="w-full mt-0.5 h-4 rounded-md bg-primary/10 flex items-center justify-center">
+                            <span className="text-[6px] font-bold text-primary">+ ADD</span>
                           </div>
                         </div>
                       </div>
@@ -224,7 +225,7 @@ export function HeroSection({ locale }: HeroSectionProps) {
                         <div className="w-full aspect-square bg-muted/30" />
                         <div className="p-1.5 space-y-1">
                           <div className="h-2 bg-muted/50 rounded w-4/5" />
-                          <div className="h-2 bg-violet-500/20 rounded w-1/2" />
+                          <div className="h-2 bg-primary/20 rounded w-1/2" />
                           <div className="h-4 bg-muted/30 rounded-md w-full mt-0.5" />
                         </div>
                       </div>
@@ -235,8 +236,8 @@ export function HeroSection({ locale }: HeroSectionProps) {
             {/* Bottom cart bar */}
             <div className="shrink-0 border-t border-white/5 bg-card/80 backdrop-blur-xl px-3 py-2.5 flex items-center gap-2">
               <div className="flex-1 flex items-center gap-1.5">
-                <div className="w-6 h-6 bg-violet-500/10 rounded-lg flex items-center justify-center">
-                  <ShoppingCart className="h-3 w-3 text-violet-500" />
+                <div className="w-6 h-6 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <ShoppingCart className="h-3 w-3 text-primary" />
                 </div>
                 <div>
                   <p className="text-[7px] text-muted-foreground">Cart</p>
@@ -245,8 +246,8 @@ export function HeroSection({ locale }: HeroSectionProps) {
                   </p>
                 </div>
               </div>
-              <div className="h-7 px-4 bg-violet-500 rounded-full flex items-center justify-center">
-                <span className="text-[8px] font-bold text-white">Checkout</span>
+              <div className="h-7 px-4 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-[8px] font-bold text-primary-foreground">Checkout</span>
               </div>
             </div>
           </div>

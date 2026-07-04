@@ -1,79 +1,155 @@
 "use client"
 
+import { useState } from "react"
+import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { Store, Menu, Sun, Moon } from "lucide-react"
+import Image from "next/image"
+import { useRouter, usePathname } from "next/navigation"
+import { Menu, X } from "lucide-react"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { useTheme } from "next-themes"
 
 interface MarketingHeaderProps {
   locale: string
 }
 
 export function MarketingHeader({ locale }: MarketingHeaderProps) {
-  const { theme, setTheme } = useTheme()
+  const t = useTranslations("MarketingHeader")
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const toggleLocale = () => {
+    const nextLocale = locale === "en" ? "km" : "en"
+    // Replace the current locale prefix in the pathname
+    const newPath = pathname.replace(`/${locale}`, `/${nextLocale}`)
+    router.push(newPath)
+  }
+
+  const navLinks = [
+    { href: "#features", label: t("features") },
+    { href: "#how-it-works", label: t("howItWorks") },
+    { href: "#pricing", label: t("pricing") },
+  ]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-background/60 backdrop-blur-xl">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 h-16 sm:h-20 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border/30 bg-background/80 backdrop-blur-xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 h-16 sm:h-20 flex items-center justify-between relative">
+
+        {/* Logo */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <span className="font-bold tracking-tight text-xl sm:text-2xl">Online Shop Platform</span>
+          <span className="font-bold tracking-tight text-xl sm:text-2xl">{t("title")}</span>
         </div>
 
+        {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold">
-          <Link href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</Link>
-          <Link href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How it Works</Link>
-          <Link href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
+        {/* Desktop Right Actions */}
         <div className="hidden lg:flex items-center gap-3">
-          {/* Dark/Light Toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="Toggle theme"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="rounded-full"
+          {/* Language Switcher */}
+          <button
+            onClick={toggleLocale}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/50 hover:border-primary/50 bg-background hover:bg-muted/50 transition-all text-sm font-semibold"
+            aria-label="Switch language"
           >
-            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          </Button>
-          <Link href={`/${locale}/login`} className="text-sm font-semibold hover:text-violet-500 transition-colors">Log in</Link>
-          <Link href={`/${locale}/register`} className={buttonVariants({ size: "default", className: "rounded-full px-6 shadow-md transition-all hover:scale-105" })}>
-            Start Free Trial
+            <Image
+              src={locale === "en" ? "/flag-en.png" : "/flag-km.png"}
+              alt={locale === "en" ? "English" : "Khmer"}
+              width={20}
+              height={14}
+              className="rounded-sm object-cover"
+              style={{ width: "auto", height: "auto" }}
+            />
+            <span className="text-xs font-bold uppercase">{locale === "en" ? "EN" : "KM"}</span>
+          </button>
+
+          <Link href={`/${locale}/login`} className="text-sm font-semibold hover:text-primary transition-colors">
+            {t("login")}
+          </Link>
+          <Link
+            href={`/${locale}/register`}
+            className={buttonVariants({ size: "default", className: "rounded-full px-6 shadow-md transition-all hover:scale-105" })}
+          >
+            {t("startFreeTrial")}
           </Link>
         </div>
 
-        {/* Mobile: theme toggle + hamburger */}
-        <div className="flex items-center gap-1 lg:hidden">
+        {/* Mobile: Lang toggle + Hamburger */}
+        <div className="flex items-center gap-2 lg:hidden">
+          {/* Language Switcher Mobile */}
+          <button
+            onClick={toggleLocale}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border border-border/50 hover:border-primary/50 bg-background hover:bg-muted/50 transition-all"
+            aria-label="Switch language"
+          >
+            <Image
+              src={locale === "en" ? "/flag-en.png" : "/flag-km.png"}
+              alt={locale === "en" ? "English" : "Khmer"}
+              width={18}
+              height={12}
+              className="rounded-sm object-cover"
+              style={{ width: "auto", height: "auto" }}
+            />
+            <span className="text-xs font-bold uppercase">{locale === "en" ? "EN" : "KM"}</span>
+          </button>
+
+          {/* Hamburger toggle */}
           <Button
             variant="ghost"
             size="icon"
-            aria-label="Toggle theme"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle menu"
+            onClick={() => setMobileOpen((prev) => !prev)}
             className="rounded-full"
           >
-            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
-          <Sheet>
-            <SheetTrigger className={buttonVariants({ variant: "ghost", size: "icon" })}>
-              <Menu className="h-5 w-5" />
-            </SheetTrigger>
-            <SheetContent className="!w-full !sm:max-w-none flex flex-col items-center justify-center">
-              <div className="flex flex-col items-center gap-8 w-full max-w-sm px-6">
-                <Link href="#features" className="text-2xl font-bold hover:text-primary transition-colors">Features</Link>
-                <Link href="#how-it-works" className="text-2xl font-bold hover:text-primary transition-colors">How it Works</Link>
-                <Link href="#pricing" className="text-2xl font-bold hover:text-primary transition-colors">Pricing</Link>
-                <hr className="w-full opacity-20" />
-                <Link href={`/${locale}/login`} className="text-2xl font-bold hover:text-violet-500 transition-colors">Log in</Link>
-                <Link href={`/${locale}/register`} className={buttonVariants({ size: "lg", className: "w-full rounded-full text-lg h-14 shadow-lg transition-all hover:scale-[1.02]" })}>
-                  Start Free Trial
-                </Link>
-              </div>
-            </SheetContent>
-          </Sheet>
         </div>
+      </div>
+
+      {/* Mobile Dropdown Menu */}
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-border/30 bg-background/95 backdrop-blur-xl ${
+          mobileOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+        }`}
+      >
+        <nav className="flex flex-col px-6 py-4 gap-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileOpen(false)}
+              className="py-3 px-4 rounded-xl text-base font-semibold text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          <div className="border-t border-border/30 my-2" />
+
+          <Link
+            href={`/${locale}/login`}
+            onClick={() => setMobileOpen(false)}
+            className="py-3 px-4 rounded-xl text-base font-semibold text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+          >
+            Log in
+          </Link>
+          <Link
+            href={`/${locale}/register`}
+            onClick={() => setMobileOpen(false)}
+            className={buttonVariants({ size: "lg", className: "w-full rounded-full text-base h-12 mt-2 shadow-md" })}
+          >
+            Start Free Trial
+          </Link>
+        </nav>
       </div>
     </header>
   )

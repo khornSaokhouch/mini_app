@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
 import Link from "next/link"
 import { Eye, EyeOff, Loader2, ShieldCheck } from "lucide-react"
 import { signIn } from "next-auth/react"
@@ -10,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export default function AdminLoginPage() {
+  const t = useTranslations("AdminLogin")
   const params = useParams()
   const locale = (params?.locale as string) || "en"
   const router = useRouter()
@@ -43,7 +45,7 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left Branding Panel */}
-      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-violet-600 via-fuchsia-600 to-indigo-600 p-12 text-white relative overflow-hidden">
+      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-zinc-950 p-12 text-white relative overflow-hidden">
         {/* Decorative background glow */}
         <div className="absolute top-0 right-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0" />
         <div className="relative z-10 flex items-center gap-3">
@@ -68,13 +70,13 @@ export default function AdminLoginPage() {
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
-            <ShieldCheck className="h-8 w-8 text-violet-600" />
-            <span className="font-bold text-xl tracking-tight">Admin Portal</span>
+            <ShieldCheck className="h-8 w-8 text-primary" />
+            <span className="font-bold text-xl tracking-tight">{t("title")}</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-extrabold tracking-tight">Admin Login</h1>
-            <p className="text-muted-foreground mt-2">Enter your system credentials</p>
+            <h1 className="text-3xl font-extrabold tracking-tight">{t("title")}</h1>
+            <p className="text-muted-foreground mt-2">{t("subtitle")}</p>
           </div>
 
           {error && (
@@ -85,7 +87,7 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Admin Email</Label>
+              <Label htmlFor="email">{t("email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -98,7 +100,7 @@ export default function AdminLoginPage() {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("password")}</Label>
               </div>
               <div className="relative">
                 <Input
@@ -121,13 +123,13 @@ export default function AdminLoginPage() {
             </div>
 
             <Button type="submit" className="w-full h-11 text-base shadow-md transition-all hover:scale-[1.02]" disabled={loading}>
-              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Signing in...</> : "Sign In"}
+              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {t("loading")}</> : t("submit")}
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
             Not an admin?{" "}
-            <Link href={`/${locale}/login`} className="font-semibold text-violet-500 hover:text-violet-600 hover:underline transition-colors">
+            <Link href={`/${locale}/login`} className="font-semibold text-primary hover:underline transition-colors">
               User Login
             </Link>
           </div>

@@ -1,10 +1,11 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { Inter } from 'next/font/google';
+const inter = Inter({ subsets: ['latin'] });
+
 import { ThemeProvider } from '@/components/theme-provider';
 import '../globals.css';
-import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
 
 export default async function LocaleLayout({
   children,
@@ -17,8 +18,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+    <html lang={locale} className={locale === 'km' ? 'font-battambang' : ''} suppressHydrationWarning>
+      <body className={locale !== 'km' ? inter.className : ''} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { Store, Eye, EyeOff, Loader2, CheckCircle2 } from "lucide-react"
+import { Store, Eye, EyeOff, Loader2, CheckCircle2, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,6 +17,7 @@ const features = [
 ]
 
 export default function RegisterPage() {
+  const t = useTranslations("Register")
   const params = useParams()
   const locale = (params?.locale as string) || "en"
   const router = useRouter()
@@ -52,7 +54,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left Branding Panel */}
-      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-12 text-white relative overflow-hidden">
+      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-zinc-950 p-12 text-white relative overflow-hidden">
         {/* Decorative background glow */}
         <div className="absolute top-0 right-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0" />
         <div className="relative z-10 flex items-center gap-3">
@@ -73,16 +75,26 @@ export default function RegisterPage() {
       </div>
 
       {/* Right Form Panel */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 overflow-y-auto">
+      <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 overflow-y-auto relative">
         <div className="w-full max-w-sm">
+          {/* Back button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="absolute top-4 left-4 lg:hidden"
+            onClick={() => router.back()}
+          >
+            {t("back")}
+          </Button>
+
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
-            <span className="font-bold text-xl tracking-tight">Online Shop Platform</span>
+            <span className="font-bold text-xl tracking-tight">{t("title")}</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-extrabold tracking-tight">Create your store</h1>
-            <p className="text-muted-foreground mt-2">Free for 14 days. No credit card needed.</p>
+            <h1 className="text-3xl font-extrabold tracking-tight">{t("title")}</h1>
+            <p className="text-muted-foreground mt-2">{t("subtitle")}</p>
           </div>
 
           {error && (
@@ -93,24 +105,24 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">{t("name")}</Label>
               <Input id="name" placeholder="Sokha Prak" value={form.name} onChange={handleChange("name")} required className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email address</Label>
+              <Label htmlFor="email">{t("email")}</Label>
               <Input id="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange("email")} required className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="storeName">Store Name</Label>
+              <Label htmlFor="storeName">{t("storeName")}</Label>
               <Input id="storeName" placeholder="My Awesome Store" value={form.storeName} onChange={handleChange("storeName")} required className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("password")}</Label>
               <div className="relative">
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Min. 8 characters"
+                  placeholder={t("passwordPlaceholder")}
                   value={form.password}
                   onChange={handleChange("password")}
                   required
@@ -128,21 +140,18 @@ export default function RegisterPage() {
             </div>
 
             <Button type="submit" className="w-full h-11 text-base shadow-md transition-all hover:scale-[1.02]" disabled={loading}>
-              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Creating your store...</> : "Create Store & Sign Up"}
+              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {t("loading")}</> : t("submit")}
             </Button>
 
             <p className="text-xs text-center text-muted-foreground">
-              By signing up, you agree to our{" "}
-              <Link href="#" className="underline hover:text-foreground">Terms of Service</Link>
-              {" "}and{" "}
-              <Link href="#" className="underline hover:text-foreground">Privacy Policy</Link>.
+              {t("terms")}
             </p>
           </form>
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            Already have an account?{" "}
-            <Link href={`/${locale}/login`} className="font-semibold text-violet-500 hover:text-violet-600 hover:underline transition-colors">
-              Sign in
+            {t("alreadyHaveAccount")}{" "}
+            <Link href={`/${locale}/login`} className="font-semibold text-primary hover:underline transition-colors">
+              {t("signIn")}
             </Link>
           </div>
         </div>

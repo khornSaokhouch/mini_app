@@ -84,14 +84,14 @@ async function main() {
   // Seed default subscription Plans
   const planData = [
     {
-      name: 'Starter',
-      description: 'Perfect for small shops just getting started.',
-      priceMonthly: 9.99,
-      priceYearly: 99.99,
-      features: ['Up to 50 products', 'Up to 500 orders/mo', '3 staff accounts', 'Basic analytics', 'Email support'],
+      name: 'Storefront',
+      description: 'Perfect for getting started and trying out our platform.',
+      priceMonthly: 0,
+      priceYearly: 0,
+      features: ['Up to 50 products', 'Basic Telegram Mini App Integration', 'Standard checkout process', 'Community support'],
       maxProducts: 50,
-      maxOrders: 500,
-      maxStaff: 3,
+      maxOrders: 100,
+      maxStaff: 1,
       isActive: true,
       isPopular: false,
       sortOrder: 0,

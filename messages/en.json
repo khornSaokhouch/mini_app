@@ -1,5 +1,155 @@
 {
   "Index": {
-    "title": "Hello world!"
+    "title": "Online Shop Platform"
+  },
+  "MarketingHeader": {
+    "title": "Online Shop Platform",
+    "features": "Features",
+    "howItWorks": "How it Works",
+    "pricing": "Pricing",
+    "login": "Log in",
+    "startFreeTrial": "Start Free Trial"
+  },
+  "HeroSection": {
+    "title": "Turn your passion into a thriving business.",
+    "description": "Everything you need to sell online, simplified. Create your beautiful store today and start reaching customers on the web and social platforms with ease.",
+    "startSelling": "Start Selling for Free",
+    "bookDemo": "Book Demo",
+    "trialInfo": "No credit card required • 14-day free trial"
+  },
+  "StatsSection": {
+    "totalUsers": "Total Users",
+    "totalStores": "Total Stores",
+    "totalProducts": "Total Products"
+  },
+  "FeaturesSection": {
+    "title": "Everything you need to scale",
+    "subtitle": "Powerful tools designed for modern store owners to manage every aspect of their business efficiently.",
+    "feature1Title": "Smart Inventory",
+    "feature1Desc": "Real-time stock tracking with low-stock alerts, movement history, and multi-location support.",
+    "feature2Title": "Telegram Native",
+    "feature2Desc": "Customers can browse your store and checkout natively inside Telegram without leaving the app.",
+    "feature3Title": "Secure Payments",
+    "feature3Desc": "Integrated payment processing with dynamic invoicing, automated receipts, and tax calculation."
+  },
+  "HowItWorksSection": {
+    "title": "How it Works",
+    "subtitle": "Get your store up and running in minutes with our simple three-step process.",
+    "step1Title": "Create Your Account",
+    "step1Desc": "Sign up and set up your store profile in seconds. No technical knowledge required.",
+    "step2Title": "Add Your Products",
+    "step2Desc": "Easily manage inventory, upload photos, and set prices from our intuitive dashboard.",
+    "step3Title": "Start Selling Everywhere",
+    "step3Desc": "Launch on the web and integrate seamlessly with Telegram to reach your customers where they are."
+  },
+  "PricingSection": {
+    "title": "Choose your plan",
+    "sectionTitle": "Simple, transparent pricing",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "storefrontName": "Storefront",
+    "storefrontDesc": "Perfect for getting started and trying out our platform.",
+    "storefrontCta": "Start Free Trial",
+    "feature1": "Up to 50 products",
+    "feature2": "Basic Telegram Mini App Integration",
+    "feature3": "Standard checkout process",
+    "feature4": "Community support",
+    "proName": "Pro",
+    "proDesc": "Everything you need to grow your store and scale your business.",
+    "proCta": "Get Started Pro",
+    "enterpriseName": "Enterprise",
+    "enterpriseDesc": "Advanced controls, high volume sales support, and custom options.",
+    "enterpriseCta": "Start Enterprise Trial"
+  },
+  "FaqSection": {
+    "title": "Frequently Asked Questions",
+    "faq1Question": "Can I change my plan later?",
+    "faq1Answer": "Yes, you can upgrade or downgrade your plan at any time from your dashboard settings. Changes take effect immediately.",
+    "faq2Question": "Is there a free trial?",
+    "faq2Answer": "Yes, all new accounts get a 14-day free trial with full access to Pro features. No credit card required.",
+    "faq3Question": "What payment methods do you accept?",
+    "faq3Answer": "We support major credit cards, as well as local payment methods like ABA PayWay and Bakong.",
+    "faq4Question": "Do you provide support?",
+    "faq4Answer": "Yes, we provide email support for all plans, with priority support for Pro and Enterprise users."
+  },
+  "ContactSection": {
+    "title": "Get in Touch",
+    "subtitle": "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "connect": "Connect with us"
+  },
+  "SocialProofSection": {
+    "title": "Trusted by over 2,000+ modern merchants"
+  },
+  "MarketingFooter": {
+    "title": "Online Shop Platform",
+    "description": "Empowering merchants to sell everywhere. Build your store, manage inventory, and grow your audience seamlessly.",
+    "product": "Product",
+    "resources": "Resources",
+    "company": "Company",
+    "features": "Features",
+    "pricing": "Pricing",
+    "telegramSdk": "Telegram SDK",
+    "changelog": "Changelog",
+    "documentation": "Documentation",
+    "apiReference": "API Reference",
+    "blog": "Blog",
+    "community": "Community",
+    "aboutUs": "About Us",
+    "careers": "Careers",
+    "contacts": "Contacts",
+    "legal": "Legal",
+    "copyright": "© 2026 Online Shop Platform. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "cookiesSettings": "Cookies Settings"
+  },
+  "Login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to your store dashboard",
+    "email": "Email address",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "submit": "Sign In",
+    "loading": "Signing in...",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create your store",
+    "back": "Back"
+  },
+  "Register": {
+    "title": "Create your store",
+    "subtitle": "Free for 14 days. No credit card needed.",
+    "name": "Full Name",
+    "email": "Email address",
+    "storeName": "Store Name",
+    "password": "Password",
+    "passwordPlaceholder": "Min. 8 characters",
+    "submit": "Create Store & Sign Up",
+    "loading": "Creating your store...",
+    "terms": "By signing up, you agree to our Terms of Service and Privacy Policy.",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "back": "Back"
+  },
+  "AdminLogin": {
+    "title": "Admin Access",
+    "subtitle": "Sign in to your admin dashboard",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Sign In",
+    "loading": "Signing in..."
+  },
+  "ForgotPassword": {
+    "title": "Forgot password?",
+    "subtitle": "Enter your email address to receive reset instructions.",
+    "email": "Email address",
+    "submit": "Send reset link",
+    "loading": "Sending...",
+    "backToLogin": "Back to login",
+    "back": "Back"
   }
 }

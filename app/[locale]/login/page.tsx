@@ -2,14 +2,16 @@
 
 import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { Store, Eye, EyeOff, Loader2 } from "lucide-react"
+import { Store, Eye, EyeOff, Loader2, ArrowLeft } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export default function LoginPage() {
+  const t = useTranslations("Login")
   const params = useParams()
   const locale = (params?.locale as string) || "en"
   const router = useRouter()
@@ -42,7 +44,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left Branding Panel */}
-      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-violet-600 via-fuchsia-600 to-indigo-600 p-12 text-white relative overflow-hidden">
+      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-zinc-950 p-12 text-white relative overflow-hidden">
         {/* Decorative background glow */}
         <div className="absolute top-0 right-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0" />
         <div className="relative z-10 flex items-center gap-3">
@@ -61,17 +63,26 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Form Panel */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">
+      <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 relative">
         <div className="w-full max-w-sm">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="absolute top-4 left-4 lg:hidden"
+            onClick={() => router.back()}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {t("back")}
+          </Button>
+
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
-            <span className="font-bold text-xl tracking-tight">Online Shop Platform</span>
+            <span className="font-bold text-xl tracking-tight">{t("title")}</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-extrabold tracking-tight">Welcome back</h1>
-            <p className="text-muted-foreground mt-2">Sign in to your store dashboard</p>
+            <h1 className="text-3xl font-extrabold tracking-tight">{t("title")}</h1>
+            <p className="text-muted-foreground mt-2">{t("subtitle")}</p>
           </div>
 
           {error && (
@@ -82,7 +93,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email address</Label>
+              <Label htmlFor="email">{t("email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -95,8 +106,8 @@ export default function LoginPage() {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link href="#" className="text-xs text-violet-500 hover:text-violet-600 font-medium hover:underline">Forgot password?</Link>
+                <Label htmlFor="password">{t("password")}</Label>
+                <Link href={`/${locale}/forgot-password`} className="text-xs text-primary font-medium hover:underline">{t("forgotPassword")}</Link>
               </div>
               <div className="relative">
                 <Input
@@ -119,14 +130,14 @@ export default function LoginPage() {
             </div>
 
             <Button type="submit" className="w-full h-11 text-base shadow-md transition-all hover:scale-[1.02]" disabled={loading}>
-              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Signing in...</> : "Sign In"}
+              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {t("loading")}</> : t("submit")}
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            Don't have an account?{" "}
-            <Link href={`/${locale}/register`} className="font-semibold text-violet-500 hover:text-violet-600 hover:underline transition-colors">
-              Create your store
+            {t("noAccount")}{" "}
+            <Link href={`/${locale}/register`} className="font-semibold text-primary hover:underline transition-colors">
+              {t("createAccount")}
             </Link>
           </div>
         </div>
