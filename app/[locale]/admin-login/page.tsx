@@ -7,6 +7,7 @@ import Link from "next/link"
 import { Eye, EyeOff, Loader2, ShieldCheck } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { Button } from "@/components/ui/button"
+import Turnstile from "@/components/Turnstile"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -18,12 +19,17 @@ export default function AdminLoginPage() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!turnstileToken) {
+      setError("Please complete the verification.")
+      return
+    }
     setLoading(true)
     setError("")
 
@@ -121,6 +127,11 @@ export default function AdminLoginPage() {
                 </button>
               </div>
             </div>
+
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
+              onVerify={(token) => setTurnstileToken(token)}
+            />
 
             <Button type="submit" className="w-full h-11 text-base shadow-md transition-all hover:scale-[1.02]" disabled={loading}>
               {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {t("loading")}</> : t("submit")}
