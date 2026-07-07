@@ -26,6 +26,7 @@ export function MarketingHeader({ locale }: MarketingHeaderProps) {
   }
 
   const navLinks = [
+    { href: "/", label: t("home") },
     { href: "#features", label: t("features") },
     { href: "#how-it-works", label: t("howItWorks") },
     { href: "#pricing", label: t("pricing") },
