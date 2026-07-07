@@ -33,6 +33,7 @@ export interface TurnstileHandle {
 
 const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
   function Turnstile({ siteKey, theme = "light", onVerify }, ref) {
+
     const containerRef = useRef<HTMLDivElement>(null);
     const widgetIdRef = useRef<string | null>(null);
 
@@ -48,6 +49,15 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
     }));
 
     useEffect(() => {
+      // --- DEVELOPMENT BYPASS ---
+      // If not in production, don't attempt to load Turnstile to avoid network errors.
+      if (process.env.NODE_ENV !== 'production') {
+        console.log("[Turnstile] Dev mode: Bypassing network request.");
+        onVerify?.('dev-mock-token');
+        return;
+      }
+      // --------------------------
+
       let active = true;
 
       const renderWidget = () => {
@@ -100,5 +110,5 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
   }
 );
 
-export default Turnstile;
 
+export default Turnstile;
