@@ -33,11 +33,9 @@ export interface TurnstileHandle {
 
 const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
   function Turnstile({ siteKey, theme = "light", onVerify }, ref) {
-
     const containerRef = useRef<HTMLDivElement>(null);
     const widgetIdRef = useRef<string | null>(null);
 
-    // Expose reset() to parent components
     useImperativeHandle(ref, () => ({
       reset() {
         if (widgetIdRef.current && window.turnstile) {
@@ -48,22 +46,30 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
       },
     }));
 
+    // Always call this hook unconditionally
     useEffect(() => {
-      // --- DEVELOPMENT BYPASS ---
-      // If not in production, don't attempt to load Turnstile to avoid network errors.
       if (process.env.NODE_ENV !== 'production') {
-        console.log("[Turnstile] Dev mode: Bypassing network request.");
+        console.log("[Turnstile] Dev mode: Bypassing widget.");
         onVerify?.('dev-mock-token');
-        return;
       }
-      // --------------------------
+    }, [onVerify]);
 
+    // Conditional return is allowed after all hooks are called
+    if (process.env.NODE_ENV !== 'production') {
+      return (
+        <div className="flex justify-center items-center p-2 border border-dashed rounded bg-muted/50 text-xs text-muted-foreground my-2">
+          Turnstile (Bypassed)
+        </div>
+      );
+    }
+
+    // Normal Turnstile initialization useEffect
+    useEffect(() => {
       let active = true;
 
       const renderWidget = () => {
         if (!window.turnstile || !containerRef.current || !active) return;
-
-        // Clean up previous widget if any
+        
         if (widgetIdRef.current) {
           try {
             window.turnstile.remove(widgetIdRef.current);
@@ -109,6 +115,5 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
     return <div ref={containerRef} className="flex justify-center min-h-[65px]" />;
   }
 );
-
 
 export default Turnstile;

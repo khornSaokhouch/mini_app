@@ -28,10 +28,12 @@ export default async function LocaleLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <Script 
-              src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" 
-              strategy="afterInteractive" 
-            />
+            {process.env.NODE_ENV === 'production' && (
+              <Script 
+                src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" 
+                strategy="afterInteractive" 
+              />
+            )}
             {children}
           </NextIntlClientProvider>
         </ThemeProvider>

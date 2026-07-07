@@ -23,7 +23,7 @@ export function StatsSection() {
       .catch(() => {})
   }, [])
 
-  if (!data) return <section className="py-12 bg-background" />
+  if (!data || !data.stats) return <section className="py-12 bg-background" />
 
   const { totalProducts, totalCustomers, totalStores } = data.stats
 
