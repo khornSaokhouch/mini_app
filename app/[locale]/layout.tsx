@@ -1,7 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 const inter = Inter({ subsets: ['latin'] });
 
 import { ThemeProvider } from '@/components/theme-provider';
@@ -28,10 +27,6 @@ export default async function LocaleLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <Script 
-              src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" 
-              strategy="afterInteractive" 
-            />
             {children}
           </NextIntlClientProvider>
         </ThemeProvider>
