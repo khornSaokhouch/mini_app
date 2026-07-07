@@ -46,30 +46,12 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
       },
     }));
 
-    // Always call this hook unconditionally
-    useEffect(() => {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log("[Turnstile] Dev mode: Bypassing widget.");
-        onVerify?.('dev-mock-token');
-      }
-    }, [onVerify]);
-
-    // Conditional return is allowed after all hooks are called
-    if (process.env.NODE_ENV !== 'production') {
-      return (
-        <div className="flex justify-center items-center p-2 border border-dashed rounded bg-muted/50 text-xs text-muted-foreground my-2">
-          Turnstile (Bypassed)
-        </div>
-      );
-    }
-
-    // Normal Turnstile initialization useEffect
     useEffect(() => {
       let active = true;
 
       const renderWidget = () => {
         if (!window.turnstile || !containerRef.current || !active) return;
-        
+
         if (widgetIdRef.current) {
           try {
             window.turnstile.remove(widgetIdRef.current);
@@ -99,7 +81,9 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
           clearInterval(checkInterval);
           active = false;
           if (widgetIdRef.current && window.turnstile) {
-            try { window.turnstile.remove(widgetIdRef.current); } catch (e) {}
+            try {
+              window.turnstile.remove(widgetIdRef.current);
+            } catch (e) {}
           }
         };
       }
@@ -107,7 +91,9 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
       return () => {
         active = false;
         if (widgetIdRef.current && window.turnstile) {
-          try { window.turnstile.remove(widgetIdRef.current); } catch (e) {}
+          try {
+            window.turnstile.remove(widgetIdRef.current);
+          } catch (e) {}
         }
       };
     }, [siteKey, theme, onVerify]);
